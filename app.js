@@ -4,6 +4,7 @@ const adminRoute = require('./routes/admin');
 const shopRoute = require('./routes/shop');
 const contactRoute = require('./routes/contact');
 const successRoute = require('./routes/success');
+const errorController = require('./controller/error');
 //--------------------------------------------------------------------
 
 const app = express();
@@ -14,11 +15,7 @@ app.use('/admin',adminRoute);
 app.use(shopRoute);
 app.use(contactRoute);
 app.use(successRoute);
-app.use((req, res, next) => { 
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-});
-
-// app.use(express.static(path.join('/public')));
+app.use(errorController.error404);
 
 //SERVER RUNNING
 app.listen(PORT, (err) => {
@@ -27,7 +24,6 @@ app.listen(PORT, (err) => {
     } else {
         console.log(err);
     }
-
 });
 
 

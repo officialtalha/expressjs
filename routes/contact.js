@@ -2,17 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const rootPath = require('../util/path');
+const productsController = require('../controller/product');
 const router = express.Router();
 //-----------------------------------------------------
 
 router.use(bodyParser.urlencoded({extended: false}));
 
-router.get('/contact', (req, res, next) => {
-    res.sendFile(path.join(rootPath, 'views', 'contact.html'));
-});
+router.get('/contact', productsController.getContact);
 
-router.post('/contact', (req, res, next) => {
-    console.log(req.body);
-    res.redirect('/success');
-});
+router.post('/contact', productsController.postContact);
 module.exports = router;
